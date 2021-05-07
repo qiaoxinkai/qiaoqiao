@@ -1,3 +1,35 @@
-这是一个测试文件
-添加几行文字
-我很开心
+import java.util.*;
+
+public class KsmallestPairs {
+    public static void main(String[] args) {
+        int[] nums1 = {1, 7, 11};
+        int[] nums2 = {2, 4, 6};
+        int k = 3;
+        List<List<Integer>> ans = new ArrayList<>();
+
+        Map<Integer, Map<Integer, Integer>> map = new HashMap();
+        for (int i = 0; i < k; i++) {
+            for (int j = 0; j < k; j++) {
+                Map<Integer, Integer> temp = new HashMap<>();
+                temp.put(nums1[i], nums2[j]);
+                map.put(nums1[i] + nums2[j], temp);
+            }
+        }
+        int[] index = new int[map.keySet().size()];
+        int idx = 0;
+        for (Integer integer : map.keySet()) {
+            index[idx++] = integer;
+        }
+        Arrays.sort(index);
+        for (int i = 0; i < k; i++) {
+            List<Integer> list = new ArrayList<>();
+            Map<Integer, Integer> map1 = map.get(index[i]);
+            for (Map.Entry<Integer, Integer> entry : map1.entrySet()) {
+                list.add(entry.getKey());
+                list.add(entry.getValue());
+            }
+            ans.add(list);
+        }
+        System.out.println(ans);
+    }
+}
